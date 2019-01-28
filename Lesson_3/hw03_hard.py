@@ -4,6 +4,23 @@
 # Округление должно происходить по математическим правилам (0.6 --> 1, 0.4 --> 0).
 # Для решения задачи не используйте встроенные функции и функции из модуля math.
 
+def my_round(number, ndigits):
+    lst = str(number).split(".")
+    dec = lst[1]
+    if len(dec) <= ndigits:
+        return number
+    else:
+        new_dec = dec[:ndigits]
+        if int(dec[ndigits+1]) > 5:
+            new_dec = int(new_dec) + 1
+            return float(lst[0] + "." + str(new_dec))
+        else:
+            return float(lst[0] + "." + new_dec)
+
+
+print(my_round(2.123456997, 3))
+print(my_round(2.1999967, 5))
+print(my_round(2.9967777, 5))
 
 # Задание-2:
 # Дана ведомость расчета заработной платы (файл "data/workers").
@@ -13,6 +30,41 @@
 # они получают удвоенную ЗП, пропорциональную норме.
 # Кол-во часов, которые были отработаны, указаны в файле "data/hours_of"
 
+import os
+
+path1 = os.path.join("data", "workers")
+path2 = os.path.join("data", "hours_of")
+workers = []
+hours = []
+
+with open(path2, "r") as f:
+    hours = f.read()
+
+hours = hours.split("\n")
+print("Имя       \tФамилия   \tВыплата")
+
+with open(path1, "r") as f1:
+    for line1 in f1:
+        lst = line1.split()
+        dic1 = {"Name": lst[0], "Surname": lst[1], "Salary": lst[2], "Post": lst[3], "Norm": lst[4]}
+        for elem in hours:
+            if dic1["Name"] in elem and dic1["Surname"] in elem and dic1["Name"] != "Имя":
+                norm = int(dic1["Norm"])
+                real = int(elem.split()[2])
+                salary = int(dic1["Salary"])
+                if real == norm:
+                    payout = real
+                    print(f"{dic1['Name']:<10}\t{dic1['Surname']:<10}\t{payout}")
+
+                elif real < norm:
+                    payout = salary * real/norm
+                    print(f"{dic1['Name']:<10}\t{dic1['Surname']:<10}\t{payout}")
+                else:
+                    payout = salary + salary*(real - norm)*2/norm
+                    print(f"{dic1['Name']:<10}\t{dic1['Surname']:<10}\t{payout}")
+
+f1.close()
+f.close()
 
 # Задание-3:
 # Дан файл ("data/fruits") со списком фруктов.
@@ -28,3 +80,27 @@
 # print(list(map(chr, range(ord('А'), ord('Я')+1))))
 
 
+alphabet = []
+dic = {}
+lst = []
+for letter in range(ord('А'), ord('Я') + 1):
+    alphabet.append(chr(letter))
+    dic[chr(letter)] = []
+
+path = os.path.join("data", "fruits.txt")
+
+with open(path, "r") as f:
+    for line in f:
+        if len(line) > 1:
+            dic[line[0]].append(line)
+            if line[0] not in lst:
+                lst.append(line[0])
+
+for letter in lst:
+    filename = os.path.join("data", "fruits_" + letter)
+    f1 = open(filename, 'a')
+    for fruit in dic[letter]:
+        f1.write(fruit)
+
+f.close()
+f1.close()
