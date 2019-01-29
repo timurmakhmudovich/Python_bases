@@ -35,15 +35,14 @@ import os
 path1 = os.path.join("data", "workers")
 path2 = os.path.join("data", "hours_of")
 workers = []
-hours = []
 
-with open(path2, "r") as f:
-    hours = f.read()
+with open(path2, "r", encoding="UTF-8") as f:
+    hours = f.read().split("\n")
+f.close()
 
-hours = hours.split("\n")
 print("Имя       \tФамилия   \tВыплата")
 
-with open(path1, "r") as f1:
+with open(path1, "r", encoding="UTF-8") as f1:
     for line1 in f1:
         lst = line1.split()
         dic1 = {"Name": lst[0], "Surname": lst[1], "Salary": lst[2], "Post": lst[3], "Norm": lst[4]}
@@ -64,7 +63,6 @@ with open(path1, "r") as f1:
                     print(f"{dic1['Name']:<10}\t{dic1['Surname']:<10}\t{payout}")
 
 f1.close()
-f.close()
 
 # Задание-3:
 # Дан файл ("data/fruits") со списком фруктов.
@@ -89,7 +87,7 @@ for letter in range(ord('А'), ord('Я') + 1):
 
 path = os.path.join("data", "fruits.txt")
 
-with open(path, "r") as f:
+with open(path, "r", encoding="UTF-8") as f:
     for line in f:
         if len(line) > 1:
             dic[line[0]].append(line)
@@ -98,7 +96,7 @@ with open(path, "r") as f:
 
 for letter in lst:
     filename = os.path.join("data", "fruits_" + letter)
-    f1 = open(filename, 'a')
+    f1 = open(filename, 'a', encoding="UTF-8")
     for fruit in dic[letter]:
         f1.write(fruit)
 
