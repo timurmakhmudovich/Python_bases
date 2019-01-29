@@ -34,7 +34,6 @@ import os
 
 path1 = os.path.join("data", "workers")
 path2 = os.path.join("data", "hours_of")
-workers = []
 
 with open(path2, "r", encoding="UTF-8") as f:
     hours = f.read().split("\n")
