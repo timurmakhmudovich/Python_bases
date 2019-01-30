@@ -13,7 +13,10 @@ matrix = [[1, 0, 8],
 #                  [8, 1, 2]]
 
 # Суть сложности hard: Решите задачу в одну строку
+import random
 
+matrix = [ [ random.randint(0,9) for j in range(3) ] for i in range(3) ]
+print(list(map(list, list(zip(*matrix)))))
 
 # Задание-2:
 # Найдите наибольшее произведение пяти любых цифр в 1000-значном числе.
@@ -41,3 +44,19 @@ number = """
 05886116467109405077541002256983155200055935729725
 71636269561882670428252483600823257530420752963450"""
 
+lst = list(number)
+
+for i in range(lst.count('\n')):
+    lst.remove('\n')
+
+lst = list(map(int, lst))
+max_comp = 0
+index = 0
+
+for i in range(4, len(lst)):
+    comp = lst[i] * lst[i-1] * lst[i-2] * lst[i-3] * lst[i-4]
+    if comp > max_comp:
+        index = i - 4
+        max_comp = comp
+
+print(f"Максимальное произведение: {max_comp}. Последовательность начинается с индекса {index}")
