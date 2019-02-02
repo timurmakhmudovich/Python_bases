@@ -16,14 +16,55 @@
 # ИСПОЛЬЗОВАТЬ МОДУЛЬ OS и SHUTIL
 
 
+import os
+import hw05_easy as easy
 
 
+def help():
+    print("1. cd <dir_name> - перейти в директорию")
+    print("2. ls - Просмотреть содержимое текущей папки")
+    print("3. rmdir <dir_name> - удаление директории")
+    print("4. mkdir <dir_name> - создание директории")
+    print("5. Выход")
 
+def main():
+    help()
+    choise = ""
+    while choise != "5":
+        choise = input("Введите свой выбор: ")
+        if choise == "":
+            help()
+        elif choise == "1":
+            dir = input("Введите название директории для перехода (.. - для перехода в родительский каталог): ")
+            try:
+                os.chdir(dir)
+            except:
+                print("Невозможно перейти")
+            else:
+                print("Успешно перешел")
+        elif choise == "2":
+            easy.ls()
+        elif choise == "3":
+            dir = input("Введите название директории для удаления: ")
+            try:
+                os.rmdir(dir)
+            except:
+                print("Невозможно удалить.")
+            else:
+                print("Успешно удалено")
+        elif choise == "4":
+            dir = input("Введите название директории для создания: ")
+            try:
+                os.mkdir(dir)
+            except:
+                print("Невозможно создать.")
+            else:
+                print("Успешно создано")
+        elif choise == "5":
+            pass
+        else:
+            print("Введите корректные данные!")
+            help()
 
-
-
-
-
-
-
+main()
 
