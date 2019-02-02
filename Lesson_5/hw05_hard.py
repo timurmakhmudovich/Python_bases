@@ -102,13 +102,10 @@ def rm():
                 print("Не хватает прав на удаление файла {}".format(file_name))
         else:
             print("Удаление отменено")
-            return
     elif os.path.isdir(file_path):
         print("Это директория, а не файл")
-        return
     else:
         print('Файла {} не существует'.format(file_name))
-        return
 
 def cd():
     try:
