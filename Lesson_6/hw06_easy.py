@@ -10,6 +10,19 @@
 А комментариях к заданию написать тип результата на русском языке.
 '''
 
+class Worker:
+    def __init__(self, name, surname, patronymic, total):
+        self.name = name
+        self.surname = surname
+        self.patronymic = patronymic
+        self.total = total
+        self._income = {"salary": self.total.split("+")[0], "bonus": self.total.split("+")[1]}
+
+worker1 = Worker("Василий", "Иванович", "Петров", "99999+5000")
+worker2 = Worker("Игнат", "Давидович", "Лейпциг", "55000+33000")
+
+print(worker1.__dict__)
+#Тип сорварь. Содержит пары название-значение всех атрибутов
 
 '''
 Задача-2: Продолжить работу над задачей 1. Создать на основе класса Worker класс
@@ -20,6 +33,19 @@ Position (реализовать наследование). Добавить к�
 Проверить работу всей структуры на реальных данных, вывести результаты.
 '''
 
+class Position(Worker):
+    def __init__(self, name, surname, patronymic, total):
+        Worker.__init__(self, name, surname, patronymic, total)
+        self.procent = float(self._income["bonus"])/(float(self._income["salary"]) + float(self._income["bonus"]))
+
+    @property
+    def salary(self):
+        total = float(self._income["salary"]) + float(self._income["bonus"])
+        return total * (1 - self.procent)
+
+
+worker3 = Position("Василий", "Иванович", "Петров", "99999+5000")
+print(worker3.salary)
 
 '''
 Задача-3: Продолжить работу над задачей 2.  Реализовать полиморфизм
@@ -28,5 +54,21 @@ Position (реализовать наследование). Добавить к�
 Проверить работу всей структуры на реальных данных, вывести результаты.
 '''
 
+class Worker2(Worker):
+    def __init__(self, name, surname, patronymic, age, total):
+        Worker.__init__(self, name, surname, patronymic, total)
+        self.age = age
+
+    @property
+    def fio(self):
+        return "Full name and age: " + self.name + " " + self.surname + " " + self.patronymic + " " + str(self.age)
+
+    @property
+    def summa(self):
+        return float(self._income["salary"]) + float(self._income["bonus"])
+
+worker4 = Worker2("Василий", "Иванович", "Петров", 56, "99999+5000")
+print(worker4.fio)
+print(worker4.summa)
 
 
