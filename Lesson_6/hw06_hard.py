@@ -17,7 +17,7 @@
 import os
 
 
-class Worker():
+class Worker:
     def __init__(self, worker):
         self.worker = worker.split()
 
