@@ -16,20 +16,12 @@
 
 import os
 
-path1 = os.path.join("data", "workers")
-path2 = os.path.join("data", "hours_of")
-
-with open(path1, 'r', encoding="UTF-8") as f:
-    workers = f.readlines()
-
-with open(path2, 'r', encoding="UTF-8") as f:
-    hours = f.readlines()
 
 class Worker():
     def __init__(self, worker):
         self.worker = worker.split()
 
-    def payout(self):
+    def payout(self, hours):
         lst1 = self.worker
         for el in hours:
             if lst1[0] in el and lst1[1] in el:
@@ -53,7 +45,19 @@ class Worker():
                     print(f"{name:<10}{surname:<10}{payout}")
 
 
+path1 = os.path.join("data", "workers")
+path2 = os.path.join("data", "hours_of")
+
+with open(path1, 'r', encoding="UTF-8") as f:
+    workers = f.readlines()
+
+with open(path2, 'r', encoding="UTF-8") as f:
+    hours = f.readlines()
+
+
+
+
 for data in workers:
     worker = Worker(data)
-    worker.payout()
+    worker.payout(hours)
 
