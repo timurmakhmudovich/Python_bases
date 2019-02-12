@@ -10,6 +10,28 @@ positions. Она будет содержать список с должност
 элемент в список
 '''
 
+class Command:
+    def __init__(self, positions):
+        self.__positions = positions
 
+    def __len__(self):
+        i = 0
+        for _ in self.__positions:
+            i += 1
+        return "Переопределили len. Длина списка: " + str(i)
+
+    def __contains__(self, item):
+        if item in self.__positions:
+            return {"Элемент": item, "Позиция": self.__positions.index(item)}
+        else:
+            return f"Элемент {item} в списке не найден"
+
+positions = ['менеджер', 'верстальщик', 'инженер', 'программист', 'аналитик', 'математик']
+
+command = Command(positions)
+
+print(command.__len__())
+print(command.__contains__("инженер"))
+print(command.__contains__("вася"))
 
 
